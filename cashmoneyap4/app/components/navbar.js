@@ -4,10 +4,16 @@ import Image from "next/image";
 import menu from "../../public/menu.png";
 import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
+import logout from "../lib/Logout";
 
 export default function Navbar() {
   const [hide, setHide] = useState(true);
   const { username } = useGlobalContext();
+  const handleLogout = async () => {
+    const resp = await logout();
+    console.log(resp);
+    location.href = "/";
+  };
   return (
     <div className=" z-10 relative">
       <div className=" w-screen md:py-0 py-4 md:h-16 xl:h-24 bg-gradient-to-r from-[#940242] to-[#f15483] md:justify-between md:flex md:items-center">
@@ -38,10 +44,23 @@ export default function Navbar() {
               {" "}
               Home{" "}
             </Link>
+            <Link
+              href="/requests"
+              className="text-white text-sm font-bold font-Cinz mr-6 xl:text-2xl"
+            >
+              {" "}
+              Requests{" "}
+            </Link>
             {username ? (
               <>
-                <h2 className="text-white text-sm font-bold font-Cinz mr-6 xl:text-2xl">
+                <h2 className="text-white text-sm font-bold font-Cinz mr-6 xl:text-2xl cursor-pointer">
                   {username}
+                </h2>
+                <h2
+                  onClick={handleLogout}
+                  className="text-white text-sm font-bold font-Cinz mr-6 xl:text-2xl cursor-pointer"
+                >
+                  Logout
                 </h2>
               </>
             ) : (
@@ -62,13 +81,6 @@ export default function Navbar() {
                 </Link>
               </>
             )}
-            <Link
-              href="/requests"
-              className="text-white text-sm font-bold font-Cinz mr-6 xl:text-2xl"
-            >
-              {" "}
-              Requests{" "}
-            </Link>
           </div>
         </div>
       </div>
