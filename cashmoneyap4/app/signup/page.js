@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
 import Navbar from "../components/navbar";
-import Login from "../login/page";
-import login from "../lib/Login";
 import { useRouter } from "next/navigation";
+import register from "../lib/Register";
 
 export default function Signup() {
   const router = useRouter();
@@ -22,9 +21,9 @@ export default function Signup() {
       password_confirmation: confirmedPassword,
       username: username,
     };
-    const resp = await login(formdata);
+    const resp = await register(formdata);
     console.log(resp);
-    router.push("/");
+    router.push("/login");
   };
 
   return (

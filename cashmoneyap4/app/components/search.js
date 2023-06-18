@@ -97,7 +97,7 @@ export default function Search() {
 
           <h1 className="text-black font-Cinz xl:ml-16 xl:text-3xl text-xl ml-4 mt-6 font-bold ">
             {" "}
-            What is......
+            What is.....
           </h1>
 
           <div className="flex flex-col justify-center items-center">

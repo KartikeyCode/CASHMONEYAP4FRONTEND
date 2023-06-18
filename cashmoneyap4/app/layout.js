@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import { GlobalState } from "./context/GlobalState";
 
 const inter = Inter({ subsets: ["latin"] });
-axios.defaults.withCredentials = true;
 
 export const metadata = {
   title: "UniBarter",
@@ -12,6 +11,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  axios.defaults.withCredentials = true;
+
   return (
     <html lang="en">
       <body className={inter.className}>
