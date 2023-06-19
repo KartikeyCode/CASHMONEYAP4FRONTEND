@@ -6,28 +6,41 @@ import sicon from "../../public/search.png";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import getReview from "../lib/ai/GetReview";
-
+import Typewriter from "typewriter-effect";
+import { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 export default function Search() {
   const [show, setShow] = useState("hidden");
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
   const [output, setOutput] = useState("");
+  const [isGenerated, setIsGenerated] = useState(false);
   const router = useRouter();
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleClick = async () => {
+    setIsGenerated(false);
     if (input === "") {
       console.log("its empty");
     } else {
       // console.log(input);
       const formdata = { userInput: input };
+
       const resp = await getReview(formdata);
       const outputText = resp.data.output.text;
       setOutput(outputText);
+      setIsGenerated(true);
     }
+  };
+  const handleLoad = () => {
+    toast.promise(handleClick(), {
+      loading: "Generating...",
+      success: <b>Generated!</b>,
+      error: <b>an error occured</b>,
+    });
   };
 
   return (
     <>
+      <Toaster />
       <div className=" xl:-mt-11 flex justify-center">
         <button
           onClick={() => {
@@ -116,7 +129,7 @@ export default function Search() {
               className=" bg-[#e7e8e2] border rounded-full px-4 border-black xl:w-[1300px] mt-4 w-72 h-14"
             />
             <button
-              onClick={handleClick}
+              onClick={handleLoad}
               className="mt-5 font-Cinz font-bold bg-[#958f89] p-3 rounded-full xl:hover:scale-125"
             >
               {" "}
@@ -128,7 +141,7 @@ export default function Search() {
             Output:
           </h1>
           <div className="xl:ml-16 xl:w-[1300px] p-4 ml-4 h-72 w-72 rounded-2xl bg-[#e7e8e2] overflow-x-scroll ">
-            {output}
+            {isGenerated && <>{output}</>}
           </div>
         </div>
       </div>

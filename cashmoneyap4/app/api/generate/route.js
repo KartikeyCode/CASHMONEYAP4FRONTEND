@@ -30,7 +30,7 @@ export async function POST(request) {
   const basePromptOutput = baseCompletion.data.choices.pop();
 
   // Build Prompt #2
-  const secondPrompt = `List the product's reviews in an optimistic manner.
+  const secondPrompt = `Explain the product in an optimistic manner.
 
     Title: ${res.userInput}
 
