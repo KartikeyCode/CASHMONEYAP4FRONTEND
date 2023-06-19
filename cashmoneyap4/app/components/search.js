@@ -11,6 +11,7 @@ export default function Search() {
   const [show, setShow] = useState("hidden");
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
+  const [output, setOutput] = useState("");
   const router = useRouter();
   const handleClick = async (e) => {
     e.preventDefault();
@@ -20,7 +21,8 @@ export default function Search() {
       // console.log(input);
       const formdata = { userInput: input };
       const resp = await getReview(formdata);
-      console.log(resp);
+      const outputText = resp.data.output.text;
+      setOutput(outputText);
     }
   };
 
@@ -126,10 +128,7 @@ export default function Search() {
             Output:
           </h1>
           <div className="xl:ml-16 xl:w-[1300px] p-4 ml-4 h-72 w-72 rounded-2xl bg-[#e7e8e2] overflow-x-scroll ">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-            quod suscipit quos aliquam eligendi quis quae a nulla, aperiam nemo
-            laudantium rem enim voluptas! Adipisci accusantium perspiciatis quos
-            repudiandae fuga! Laborum, repellat!
+            {output}
           </div>
         </div>
       </div>
